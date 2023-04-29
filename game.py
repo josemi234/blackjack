@@ -16,7 +16,7 @@ class Deck:
     def __init__(self):
         self.cards = []
         suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
-        values = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '20', 'Jack', 'Queen', 'King']
+        values = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
 
         for suit in suits:
             for value in values:
@@ -77,7 +77,7 @@ class Game:
         print(f"Dealer's hand: {self.dealer_hand.cards[0]}")
 
         while True:
-            choice = input("Do you want to hit or stand?")
+            choice = input("Do you want to hit or stand? \n")
             if choice.lower() == 'hit':
                 self.player_hand.add_card(self.deck.deal_card())
                 print(f"Players's hand: {self.player_hand}")

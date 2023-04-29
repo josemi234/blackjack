@@ -9,7 +9,7 @@ class Card:
         self.value = value
 
     def __str__(self):
-        return f"{self.value} of {serlf.suit}"
+        return f"{self.value} of {self.suit}"
 
 # Class that builds each Deck
 class Deck:
@@ -60,4 +60,54 @@ class Hand:
         for card in self.cards:
             cards_string += str(card) + ", "
         return cards_string[:-2]
-    
+
+# Start Game
+class Game:
+    def __init__(self):
+        self.deck = Deck()
+        self.player_hand = Hand()
+        self.dealer_hand = Hand()
+
+    def play_game(self):
+        print("Welcome to this Blackjack game!")
+        self.player_hand.add_card(self.deck.deal_card())
+        self.player_hand.add_card(self.deck.deal_card())
+        self.dealer_hand.add_card(self.deck.deal_card())
+        print(f"Players's hand: {self.player_hand}")
+        print(f"Dealer's hand: {self.dealer_hand.cards[0]}")
+
+        while True:
+            choice = input("Do you want to hit or stand?")
+            if choice.lower() == 'hit':
+                self.player_hand.add_card(self.deck.deal_card())
+                print(f"Players's hand: {self.player_hand}")
+                if self.player_hand.get_value() > 21:
+                    print(" Wrong decission, Dealer wins!")
+                    return
+                
+            elif choice.lower() == 'stand':
+                break
+
+        while self.dealer_hand.get_value() < 17:
+            self.dealer_hand.add_card(self.deck.deal_card())
+        
+        print(f"Players's hand: {self.player_hand}")
+        print(f"Dealer's hand: {self.dealer_hand}")
+
+        player_value = self.player_hand.get_value()
+        dealer_value = self.dealer_hand.get_value()
+
+        if player_value > 21:
+            print('Dealer wins!')
+        elif dealer_value > 21:
+            print('Congrats, You win!')
+        elif player_value > dealer_value:
+            print('You win!')
+        elif dealer_value > player_value:
+            print('You loose!')
+        else:
+            print("It's a tie!")
+game = Game()
+game.play_game()
+
+        
